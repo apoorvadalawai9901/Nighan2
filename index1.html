@@ -1,0 +1,145 @@
+<!-- ...existing code... -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Guess the Number</title>
+  <style>
+    body{font-family:system-ui,Segoe UI,Roboto,Arial;margin:2rem;background:#f7f8fb;color:#111;display:flex;align-items:center;justify-content:center;min-height:100vh}
+    .card{background:#fff;padding:1.25rem;border-radius:10px;box-shadow:0 6px 18px rgba(16,24,40,.06);max-width:420px;width:100%;text-align:center}
+    input[type=number]{width:120px;padding:.5rem;border-radius:6px;border:1px solid #dbeafe;margin-right:.5rem}
+    button{padding:.5rem .75rem;border-radius:8px;border:1px solid #cfe8ff;background:#e9f5ff;color:#003a66;cursor:pointer}
+    p.muted{color:#6b7280;font-size:.9rem}
+    .msg{margin-top:1rem;font-weight:600}
+  </style>
+</head>
+<body>
+  <main class="card" role="main" aria-labelledby="title">
+    <h1 id="title">Guess the Number</h1>
+    <p class="muted">I'm thinking of a number between 1 and 100. You have 7 tries.</p>
+
+    <div style="margin-top:1rem">
+      <input id="guess" type="number" min="1" max="100" placeholder="1 - 100" />
+      <button id="check">Check</button>
+      <button id="new">New Game</button>
+    </div>
+
+    <div class="msg" id="message" aria-live="polite"></div>
+    <p class="muted" id="status">Tries left: <span id="tries">7</span></p>
+  </main>
+
+  <script>
+    (function(){
+      const el = id => document.getElementById(id);
+      let secret, tries, maxTries = 7;
+
+      function start() {
+        secret = Math.floor(Math.random()*100) + 1;
+        tries = maxTries;
+        el('tries').textContent = tries;
+        el('message').textContent = 'Good luck!';
+        el('guess').value = '';
+        el('guess').disabled = false;
+        el('check').disabled = false;
+      }
+
+      function end(win) {
+        el('guess').disabled = true;
+        el('check').disabled = true;
+        el('message').textContent = win ? `Correct! The number was ${secret}.` : `Out of tries. The number was ${secret}.`;
+      }
+
+      el('check').addEventListener('click', ()=>{
+        const g = Number(el('guess').value);
+        if(!g || g < 1 || g > 100) { el('message').textContent = 'Enter a number between 1 and 100.'; return; }
+        tries--;
+        el('tries').textContent = tries;
+        if(g === secret) return end(true);
+        el('message').textContent = g < secret ? 'Too low!' : 'Too high!';
+        if(tries <= 0) end(false);
+      });
+
+      el('new').addEventListener('click', start);
+
+      // Enter key submits
+      el('guess').addEventListener('keydown', e=>{ if(e.key === 'Enter') el('check').click(); });
+
+      start();
+    })();
+  </script>
+</body>
+</html>
+```<!-- filepath: d:\Nighan2\index1.html -->
+<!-- ...existing code... -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Guess the Number</title>
+  <style>
+    body{font-family:system-ui,Segoe UI,Roboto,Arial;margin:2rem;background:#f7f8fb;color:#111;display:flex;align-items:center;justify-content:center;min-height:100vh}
+    .card{background:#fff;padding:1.25rem;border-radius:10px;box-shadow:0 6px 18px rgba(16,24,40,.06);max-width:420px;width:100%;text-align:center}
+    input[type=number]{width:120px;padding:.5rem;border-radius:6px;border:1px solid #dbeafe;margin-right:.5rem}
+    button{padding:.5rem .75rem;border-radius:8px;border:1px solid #cfe8ff;background:#e9f5ff;color:#003a66;cursor:pointer}
+    p.muted{color:#6b7280;font-size:.9rem}
+    .msg{margin-top:1rem;font-weight:600}
+  </style>
+</head>
+<body>
+  <main class="card" role="main" aria-labelledby="title">
+    <h1 id="title">Guess the Number</h1>
+    <p class="muted">I'm thinking of a number between 1 and 100. You have 7 tries.</p>
+
+    <div style="margin-top:1rem">
+      <input id="guess" type="number" min="1" max="100" placeholder="1 - 100" />
+      <button id="check">Check</button>
+      <button id="new">New Game</button>
+    </div>
+
+    <div class="msg" id="message" aria-live="polite"></div>
+    <p class="muted" id="status">Tries left: <span id="tries">7</span></p>
+  </main>
+
+  <script>
+    (function(){
+      const el = id => document.getElementById(id);
+      let secret, tries, maxTries = 7;
+
+      function start() {
+        secret = Math.floor(Math.random()*100) + 1;
+        tries = maxTries;
+        el('tries').textContent = tries;
+        el('message').textContent = 'Good luck!';
+        el('guess').value = '';
+        el('guess').disabled = false;
+        el('check').disabled = false;
+      }
+
+      function end(win) {
+        el('guess').disabled = true;
+        el('check').disabled = true;
+        el('message').textContent = win ? `Correct! The number was ${secret}.` : `Out of tries. The number was ${secret}.`;
+      }
+
+      el('check').addEventListener('click', ()=>{
+        const g = Number(el('guess').value);
+        if(!g || g < 1 || g > 100) { el('message').textContent = 'Enter a number between 1 and 100.'; return; }
+        tries--;
+        el('tries').textContent = tries;
+        if(g === secret) return end(true);
+        el('message').textContent = g < secret ? 'Too!' : 'Too high!';
+        if(tries <= 0) end(false);
+      });
+
+      el('new').addEventListener('click', start);
+
+      // Enter key submits
+      el('guess').addEventListener('keydown', e=>{ if(e.key === 'Enter') el('check').click(); });
+
+      start();
+    })();
+  </script>
+</body>
+</html>
